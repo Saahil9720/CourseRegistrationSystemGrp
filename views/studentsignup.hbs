@@ -1,21 +1,28 @@
 <html>
-
   <head>
     <title>Student Sign Up Form</title>
   </head>
-
   <body>
     <h1>Student Sign Up Form</h1>
     <form action="/studentsignup" method="POST">
       <!-- Signup form fields -->
-      <!-- Example: Name, Email, Password fields -->
-      <input type="text" name="name" placeholder="Name" required />
+      <input type="text" name="firstName" placeholder="First Name" required />
+      <input type="text" name="lastName" placeholder="Last Name" required />
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
       <input type="text" name="id" placeholder="ID" required />
+      <input type="text" name="semester" placeholder="Semester" required />
+      <input
+        type="text"
+        name="academicYear"
+        placeholder="Academic Year"
+        required
+      />
+      <input type="text" name="course1" placeholder="Course 1" required />
+      <input type="text" name="course2" placeholder="Course 2" required />
+      <!-- Add more input fields for courses as needed -->
 
       <button type="submit">Signup</button>
     </form>
   </body>
-
 </html>
