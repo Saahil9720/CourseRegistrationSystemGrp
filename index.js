@@ -28,7 +28,12 @@ app.use(
     saveUninitialized: true,
   })
 );
+const handlebars = require('handlebars');
 
+// Define the custom helper function
+handlebars.registerHelper('inc', function(value) {
+  return parseInt(value) + 1;
+});
 // Configure Handlebars
 const hbs = exphbs.create({
   extname: ".hbs", // Set the file extension for handlebars files
@@ -122,7 +127,7 @@ app.post("/studentsignin", async (req, res) => {
 
       if (passwordMatch) {
         // Passwords match - authentication successful
-        console.log("User authenticated:", email);
+        console.log("User authenticated:", id);
         res.redirect("/studentdashboard"); // Redirect to dashboard or desired page after authentication
       } else {
         // Passwords don't match - authentication failed
@@ -148,20 +153,16 @@ app.get("/studentdashboard", async (req, res) => {
       try {
         const coursesCollection = firestore.collection("Courses");
         const snapshot = await coursesCollection.get();
-
+    
         const availableCourses = [];
         snapshot.forEach((doc) => {
-          // Extract course data from each document
           const courseData = doc.data();
-          // Assuming each course document has a 'courseNumber' field
-          const courseNumber = courseData.courseNumber;
-          // Assuming you want to display course numbers to the student
-          availableCourses.push(courseNumber);
+          const courseID = courseData.courseid;
+          availableCourses.push(courseID);
         });
-
+    
         // Render or display the available courses to the student interface
         console.log("Available Courses:", availableCourses);
-        // Optionally, you can return availableCourses array to use elsewhere in your code
         return availableCourses;
       } catch (error) {
         console.error("Error fetching available courses:", error);
@@ -181,8 +182,7 @@ app.get("/studentdashboard", async (req, res) => {
           const studentData = studentDoc.data();
           // Assuming 'courses' is the field in the student document that stores registered courses as a list/array
           const registeredCourses = studentData.courses || [];
-
-          // Optionally, you can return the list of registered courses
+console.log("Registered Courses:",registeredCourses)
           return registeredCourses;
         } else {
           console.log("Student document not found");
@@ -208,7 +208,7 @@ app.get("/studentdashboard", async (req, res) => {
 
 app.post("/registercourse", async (req, res) => {
   try {
-    const { courses } = req.body;
+    const { selectedCourse } = req.body;
 
     // Get the logged-in student's information from the session or token
     const loggedInStudentId = req.session.studentId;
@@ -216,42 +216,39 @@ app.post("/registercourse", async (req, res) => {
     // Fetch the student's document from Firestore
     const studentRef = firestore.collection("Students").doc(loggedInStudentId);
     const studentDoc = await studentRef.get();
-
+    
     if (studentDoc.exists) {
       const studentData = studentDoc.data();
-      // Assuming a 'registeredCourses' field in the student document to store registered courses
       const registeredCourses = studentData.registeredCourses || [];
+      const availableCourses = studentData.availableCourses || [];
 
-      // Constants for course limits
-      const MAX_COURSES_PER_SEMESTER = 5;
-      const MAX_COURSES_PER_ACADEMIC_YEAR = 10;
+      // Check if the selected course is available
+      if (availableCourses.includes(selectedCourse)) {
+        // Check if the course has already been registered
+        if (!registeredCourses.includes(selectedCourse)) {
+          // Assuming a 'registeredCourses' field in the student document to store registered courses
+          registeredCourses.push(selectedCourse);
 
-      // Calculate remaining courses allowed for this semester and academic year
-      const remainingCoursesAllowed = calculateRemainingCoursesAllowed(
-        registeredCourses,
-        MAX_COURSES_PER_SEMESTER,
-        MAX_COURSES_PER_ACADEMIC_YEAR
-      );
+          // Remove the selected course from available courses
+          const updatedAvailableCourses = availableCourses.filter(
+            (course) => course !== selectedCourse
+          );
 
-      if (
-        remainingCoursesAllowed >=
-        courses.length + registeredCourses.length
-      ) {
-        // Add newly registered courses to the existing list
-        registeredCourses.push(...courses);
+          // Update 'registeredCourses' and 'availableCourses' fields in the student document
+          await studentRef.update({
+            registeredCourses: registeredCourses,
+            availableCourses: updatedAvailableCourses,
+          });
 
-        // Update the 'registeredCourses' field in the student document
-        await studentRef.update({
-          registeredCourses: registeredCourses,
-        });
-
-        // Successful registration
-        res.redirect("/studentdashboard"); // Redirect to the student dashboard after successful registration
+          // Successful registration
+          res.redirect("/studentdashboard"); // Redirect to the student dashboard after successful registration
+        } else {
+          // Course already registered
+          res.status(400).send("Course has already been registered.");
+        }
       } else {
-        // Registration limit exceeded
-        res
-          .status(400)
-          .send("You have exceeded the maximum limit for course registration.");
+        // Course not available for registration
+        res.status(400).send("Selected course is not available for registration.");
       }
     } else {
       // Student not found
@@ -507,6 +504,23 @@ app.post("/entergrades/exams", async (req, res) => {
     res.status(500).send("An error occurred while submitting exam score.");
   }
 });
+
+//ADMIN DASHBOARD
+app.get('/admin', (req,res)=>{
+  res.render('admindashboard');
+  // Create a "Courses" collection in Firestore and allow storage of courseid, coursename, and course description
+  app.post('/admin/create-course', async (req, res) => {
+    const { courseid, coursename, coursedescription } = req.body;
+    const courseRef = firestore.collection("Courses").doc(courseid);
+    await courseRef.set({
+      courseid,
+      coursename,
+      coursedescription
+    });
+    res.status(200).send("Course created successfully!");
+  });
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;

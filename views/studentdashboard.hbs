@@ -5,21 +5,21 @@
   <body>
     <h1>Welcome to the Student Dashboard</h1>
     <h2>Courses Available for Registration:</h2>
-
-    <!-- Display available courses for registration -->
-    <form action="/registercourse" method="POST">
+    <ul>
       {{#each availableCourses}}
-        <label for="{{this}}">Course {{inc @index}}:</label>
-        <input type="text" id="{{this}}" name="{{this}}" required /><br /><br />
+        <li>
+          <input type="radio" id="{{this}}" name="selectedCourse" value="{{this}}" />
+          <label for="{{this}}">Course {{inc @index}}: {{this}}</label>
+        </li>
       {{/each}}
+    </ul>
 
-      <!-- Add more input fields for registering courses -->
-
-      <button type="submit">Register Courses</button>
+    <!-- Form to register a course -->
+    <form action="/registercourse" method="POST">
+      <button type="submit">Register Course</button>
     </form>
 
     <h2>Registered Courses:</h2>
-
     <!-- Display currently registered courses -->
     <ul>
       {{#each registeredCourses}}
@@ -28,8 +28,7 @@
     </ul>
 
     <script>
-      Handlebars.registerHelper('inc', function(value, options) { return
-      parseInt(value) + 1; });
+      Handlebars.registerHelper('inc', function(value, options) { return parseInt(value) + 1; });
     </script>
   </body>
 </html>
