@@ -28,7 +28,12 @@ app.use(
     saveUninitialized: true,
   })
 );
+const handlebars = require("handlebars");
 
+// Define the custom helper function
+handlebars.registerHelper("inc", function (value) {
+  return parseInt(value) + 1;
+});
 // Configure Handlebars
 const hbs = exphbs.create({
   extname: ".hbs", // Set the file extension for handlebars files
