@@ -5,6 +5,12 @@
   <body>
     <h1>Welcome to the Lecturer Dashboard</h1>
 
+<form action="/admin/create-course" method="post">
+    <input type="text" name="courseid" placeholder="Course ID">
+    <input type="text" name="coursename" placeholder="Course Name">
+    <input type="text" name="coursedescription" placeholder="Course Description">
+    <button type="submit">Create Course</button>
+  </form>
     <!-- Student Information -->
     <h2>Student Information:</h2>
     <p>Student Name: {{student.firstName}} {{student.lastName}}</p>

@@ -350,7 +350,7 @@ app.post("/lecturersignup", async (req, res) => {
     });
 
     // Handle successful signup
-    console.log("Successfully stored lecturer data in Firestore for:", email);
+    console.log("Successfully stored lecturer data in Firestore for:", facultyId);
     res.redirect("/lecturerdashboard"); // Redirect to dashboard or desired page after signup
   } catch (error) {
     console.error("Error creating new user:", error);
@@ -383,7 +383,7 @@ app.post("/lecturersignin", async (req, res) => {
 
       if (passwordMatch) {
         // Passwords match - authentication successful
-        console.log("User authenticated:", email);
+        console.log("User authenticated:", facultyId);
         res.redirect("/lecturerdashboard"); // Redirect to dashboard or desired page after authentication
       } else {
         // Passwords don't match - authentication failed
