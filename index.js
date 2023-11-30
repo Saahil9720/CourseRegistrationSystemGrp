@@ -430,6 +430,16 @@ app.get("/lecturerdashboard", (req, res) => {
   // Render lecturer dashboard with assignment, CAT, exam input forms (lecturerdashboard.hbs)
   res.render("lecturerdashboard");
 });
+app.post('/create-course', async (req, res) => {
+  const { courseid, coursename, coursedescription } = req.body;
+  const courseRef = firestore.collection("Courses").doc(courseid);
+  await courseRef.set({
+    courseid,
+    coursename,
+    coursedescription
+  });
+  res.status(200).send("Course created successfully!");
+});
 
 app.post("/entergrades/assignments", async (req, res) => {
   try {
@@ -508,17 +518,6 @@ app.post("/entergrades/exams", async (req, res) => {
 //ADMIN DASHBOARD
 app.get('/admin', (req,res)=>{
   res.render('admindashboard');
-  // Create a "Courses" collection in Firestore and allow storage of courseid, coursename, and course description
-  app.post('/admin/create-course', async (req, res) => {
-    const { courseid, coursename, coursedescription } = req.body;
-    const courseRef = firestore.collection("Courses").doc(courseid);
-    await courseRef.set({
-      courseid,
-      coursename,
-      coursedescription
-    });
-    res.status(200).send("Course created successfully!");
-  });
 });
 
 
