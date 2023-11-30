@@ -68,6 +68,9 @@ app.post("/studentsignup", async (req, res) => {
       academicYear,
       course1,
       course2,
+      course3,
+      course4,
+      course5,
       // Add more course fields as needed
     } = req.body;
 
@@ -85,7 +88,7 @@ app.post("/studentsignup", async (req, res) => {
         lastName,
         semester,
         academicYear,
-        courses: [course1, course2], // Store courses in an array
+        courses: [course1, course2, course3, course4, course5], // Store courses in an array
         // Other user details as needed
       });
 
@@ -340,7 +343,7 @@ app.get("/lecturersignup", (req, res) => {
 // POST request for signup form
 app.post("/lecturersignup", async (req, res) => {
   try {
-    const { email, password, facultyId } = req.body;
+    const { email, password, facultyId, course } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
@@ -349,6 +352,7 @@ app.post("/lecturersignup", async (req, res) => {
       email,
       hashedPassword,
       facultyId,
+      courseTaught,
       // You can add more user details as needed
     });
 
@@ -369,7 +373,7 @@ app.get("/lecturersignin", (req, res) => {
 // POST request for signin form
 app.post("/lecturersignin", async (req, res) => {
   try {
-    const { email, password, facultyId } = req.body;
+    const { facultyId, password } = req.body;
 
     // Retrieve user data from Firestore using the provided email
     const userDoc = await firestore

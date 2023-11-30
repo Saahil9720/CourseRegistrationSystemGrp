@@ -1,28 +1,75 @@
-<html>
-
+<html lang="en">
   <head>
-    <title>Home Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body { background-color: #e9ecef; /* A light grey background */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; } .container
+      { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to
+      container */ background-color: #fff; /* White background for the container
+      */ border-radius: 8px; /* Slightly rounded corners */ padding: 40px; } h2
+      { color: #004080; /* A deep blue color for the heading */ margin-bottom:
+      30px; /* More space below the heading */ } .btn-primary {
+      background-color: #004080; /* Deep blue background for buttons */ border:
+      none; padding: 10px 20px; /* Larger padding for buttons */ font-size:
+      18px; /* Larger font size */ } .btn-primary:hover { background-color:
+      #003060; /* Slightly darker blue on hover */ }
+    </style>
   </head>
-
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="/studentsignup">Student Sign Up</a></li>
-          <li><a href="/studentsignin">Student Sign In</a></li>
-          <li><a href="/lecturersignup">Lecturer Sign Up</a></li>
-          <li><a href="/lecturersignin">Lecturer Sign In</a></li>
-        </ul>
-      </nav>
-    </header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">WHITEBOARD</a>
 
-    <h1>Welcome to the Home Page</h1>
-    <!-- Other content or messages here -->
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <script>
-      // Example JavaScript for navigation logic (optional) // You can use
-      JavaScript to enhance the navigation behavior if needed
-    </script>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/studentsignup">Sign Up(Student)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/lecturersignup">Sign Up(lecturer)</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div class="container mt-5">
+      <h2 class="text-center">Welcome to WhiteBoard</h2>
+      <!-- Login Buttons -->
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+          <!-- Student Login Button -->
+          <a href="/studentsignin" class="btn btn-primary btn-block mb-2">Student Sign in</a>
+          <!-- Lecturer Login Button -->
+          <a href="/lecturersignin" class="btn btn-primary btn-block mb-2">Lecturer Sign in</a>
+          <!-- You can customize the href for lecturer login if needed -->
+          <!-- <a href="/lecturer-login" class="btn btn-primary btn-block mb-2">Lecturer Login</a> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap and Popper.js scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"
+    ></script>
+
   </body>
-
 </html>

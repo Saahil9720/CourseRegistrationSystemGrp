@@ -1,28 +1,77 @@
-<html>
-  <head>
-    <title>Student Sign Up Form</title>
-  </head>
-  <body>
-    <h1>Student Sign Up Form</h1>
-    <form action="/studentsignup" method="POST">
-      <!-- Signup form fields -->
-      <input type="text" name="firstName" placeholder="First Name" required />
-      <input type="text" name="lastName" placeholder="Last Name" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <input type="text" name="id" placeholder="ID" required />
-      <input type="text" name="semester" placeholder="Semester" required />
-      <input
-        type="text"
-        name="academicYear"
-        placeholder="Academic Year"
-        required
-      />
-      <input type="text" name="course1" placeholder="Course 1" required />
-      <input type="text" name="course2" placeholder="Course 2" required />
-      <!-- Add more input fields for courses as needed -->
+<!DOCTYPE html>
+<html lang="en">
 
-      <button type="submit">Signup</button>
-    </form>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Sign Up Form</title>
+  <!-- Bootstrap CSS link -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Additional styles -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      width: 100%;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Student Sign Up Form</h1>
+  <form action="/studentsignup" method="POST">
+    <!-- Signup form fields -->
+    <input type="text" name="firstName" placeholder="First Name" required />
+    <input type="text" name="lastName" placeholder="Last Name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <input type="text" name="id" placeholder="ID" required />
+    <input type="text" name="semester" placeholder="Semester" required />
+    <input type="text" name="academicYear" placeholder="Academic Year" required />
+    <input type="text" name="course1" placeholder="Course 1" required />
+    <input type="text" name="course2" placeholder="Course 2" required />
+    <input type="text" name="course3" placeholder="Course 3" required />
+    <input type="text" name="course4" placeholder="Course 4" required />
+    <input type="text" name="course5" placeholder="Course 5" />
+  
+    <!-- Add more input fields for courses as needed -->
+
+    <button type="submit">Signup</button>
+  </form>
+
+  <!-- Bootstrap JS and Popper.js scripts (required for Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
 </html>
